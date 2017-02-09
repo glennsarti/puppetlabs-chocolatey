@@ -93,7 +93,7 @@ begin
   # Runs the reference tests in agent only configuration
   desc 'Executes reference tests (agent only) intended for use in CI'
   rototiller_task :reference_tests  do |task|
-    Rake::Task[:host_config].invoke("#{default_reference_platform}") # pass the default_reference_platform to the host_config task
+    #Rake::Task[:host_config].invoke("#{default_reference_platform}") # pass the default_reference_platform to the host_config task
     task.add_command do |cmd|
       cmd.name = 'bundle exec beaker'
 
