@@ -42,15 +42,12 @@ end
 
 platform = ENV["PLATFORM"]
 
+# Create the directory, if it exists already you'll get an error, but this should not stop the execution
+test_configpath = File.join(File.join(Pathname.new(__FILE__).dirname,'tests'),'configs')
+FileUtils.mkdir_p(test_configpath) unless Dir.exist? test_configpath
+
 desc 'Executes reference tests (agent only) intended for use in CI'
 task :reference_tests do
-  # Create the directory, if it exists already you'll get an error, but this should not stop the execution
-  begin
-    sh 'mkdir tests/configs'
-  rescue => e
-    puts e.message
-  end
-
   command = "bundle exec beaker-hostgenerator --global-config {masterless=true} #{platform} > tests/configs/#{platform}" # should we assume the "configs" directory is present?
   sh command
 
